@@ -8,6 +8,7 @@ const axios = require("axios");
 // the express static middleware, to serve all files
 // inside the public directory
 //
+const href = process.env.HREF;
 const clientID = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const redirect_to_url = process.env.REDIRECT_TO_URL || "/welcome.html";
@@ -23,7 +24,7 @@ app.set("views", __dirname + "/public/views");
 app.set("view engine", "pug");
 
 app.get("/", (_, res) => {
-  res.render("./index.pug", { clientID, redirectUri });
+  res.render("./index.pug", { href, clientID, redirectUri });
 });
 
 // Declare the redirect route
@@ -56,6 +57,7 @@ app.get("/oauth/redirect", (req, res) => {
 
 app.listen(PORT, () => {
   console.log("dirname ", __dirname);
+  console.log("href ", href);
   console.log("redirect to url ", redirect_to_url);
   console.log("redirect uri ", redirectUri);
   console.log("listening on", PORT);
